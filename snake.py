@@ -6,6 +6,10 @@ food = vector(0, 0)
 snake = [vector(10, 0)]
 aim = vector(0, -10)
 
+
+
+
+
 def change(x, y):
     "Change snake direction."
     aim.x = x
@@ -14,6 +18,21 @@ def change(x, y):
 def inside(head):
     "Return True if head inside boundaries."
     return -200 < head.x < 190 and -200 < head.y < 190
+
+def food_move():
+    food_direction = randrange(0,4)
+    food_aim = vector(0,0)
+    if food_direction == 0:
+        food_aim.x = 10
+    elif food_direction == 1:
+        food_aim.x = -10
+    elif food_direction == 2:
+        food_aim.y = 10
+    else:
+        food_aim.y = -10
+    food.move(food_aim)
+    
+
 
 def move():
     "Move snake forward one segment."
@@ -39,9 +58,12 @@ def move():
     for body in snake:
         square(body.x, body.y, 9, 'black')
 
+    food_move()
     square(food.x, food.y, 9, 'green')
     update()
     ontimer(move, 100)
+
+    
 
 setup(420, 420, 370, 0)
 hideturtle()
@@ -51,5 +73,6 @@ onkey(lambda: change(10, 0), 'Right')
 onkey(lambda: change(-10, 0), 'Left')
 onkey(lambda: change(0, 10), 'Up')
 onkey(lambda: change(0, -10), 'Down')
+food_move()
 move()
 done()
