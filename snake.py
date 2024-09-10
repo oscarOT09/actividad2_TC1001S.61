@@ -24,7 +24,7 @@ def food_move():
     food_direction = randrange(0,4)
     food_aim = vector(0,0)
     global food_timer
-    if food_timer == -0:
+    if food_timer == 0:
         if food_direction == 0:
             food_aim.x = 10
         elif food_direction == 1:
@@ -32,12 +32,15 @@ def food_move():
         elif food_direction == 2:
             food_aim.y = 10
         else:
-            food_aim.y = -10
-        food.move(food_aim)
-        food_timer = 5
+            food_aim.y = -10        
+        future_food_location = food.copy()
+        future_food_location += food_aim
+        if inside(future_food_location):
+            food.move(food_aim)
+        
+        food_timer=5       
     else:
         food_timer-=1
-    
 
 
 def move():
@@ -79,6 +82,5 @@ onkey(lambda: change(10, 0), 'Right')
 onkey(lambda: change(-10, 0), 'Left')
 onkey(lambda: change(0, 10), 'Up')
 onkey(lambda: change(0, -10), 'Down')
-food_move()
 move()
 done()
