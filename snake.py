@@ -5,8 +5,7 @@ from freegames import square, vector
 food = vector(0, 0)
 snake = [vector(10, 0)]
 aim = vector(0, -10)
-
-
+food_timer = 0
 
 
 
@@ -19,18 +18,25 @@ def inside(head):
     "Return True if head inside boundaries."
     return -200 < head.x < 190 and -200 < head.y < 190
 
+
+
 def food_move():
     food_direction = randrange(0,4)
     food_aim = vector(0,0)
-    if food_direction == 0:
-        food_aim.x = 10
-    elif food_direction == 1:
-        food_aim.x = -10
-    elif food_direction == 2:
-        food_aim.y = 10
+    global food_timer
+    if food_timer == -0:
+        if food_direction == 0:
+            food_aim.x = 10
+        elif food_direction == 1:
+            food_aim.x = -10
+        elif food_direction == 2:
+            food_aim.y = 10
+        else:
+            food_aim.y = -10
+        food.move(food_aim)
+        food_timer = 5
     else:
-        food_aim.y = -10
-    food.move(food_aim)
+        food_timer-=1
     
 
 
